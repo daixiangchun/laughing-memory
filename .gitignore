@@ -22,6 +22,9 @@ backend/data/cache/*
 backend/data/raw/
 backend/data/processed/
 
+# 本地讲解提纲，不公开到仓库
+ARCHITECTURE.md
+
 # 其他
 *.log
 *.db

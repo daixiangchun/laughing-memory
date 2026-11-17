@@ -16,7 +16,7 @@ PostgreSQL 是可选的：只用来存查询日志，数据库不可用时问答
 | `Dockerfile`、`.dockerignore`、`compose.yaml` | `.env`（含密钥与数据库密码） |
 | `requirements.in`、`requirements.txt` | `.venv/`、`.cache/`、`__pycache__/` |
 | `backend/`（代码、`static/`、`data/index/`、`data/eval/`） | `backend/data/raw/`（约 67MB，可重新抓取） |
-| `tests/`、`docs/`、`README.md`、`ARCHITECTURE.md` | `backend/data/processed/`、`backend/data/cache/` |
+| `tests/`、`docs/`、`README.md` | `backend/data/processed/`、`backend/data/cache/`、`ARCHITECTURE.md` |
 | `.github/workflows/ci.yml`、`.gitignore`、`.env.example` | `.pytest_cache/`、`.vscode/` |
 
 提交前建议检查一次：

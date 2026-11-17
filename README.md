@@ -204,4 +204,3 @@ docs/                     evaluation.md、decisions.md
 
 - [docs/evaluation.md](docs/evaluation.md)：评测方法、结果表与逐题分析
 - [docs/decisions.md](docs/decisions.md)：技术取舍（ADR）
-- [ARCHITECTURE.md](ARCHITECTURE.md)：面试讲解提纲与开发记录
