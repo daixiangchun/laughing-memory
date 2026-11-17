@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+*.egg-info/
+
+# 本地密钥与缓存（.env 含数据库密码，切勿提交）
+.env
+.env.*
+!.env.example
+.cache/
+
+# 运行时数据：向量库与上传文档不入库
+backend/data/vectorstore/
+backend/data/documents/*
+!backend/data/documents/.gitkeep
+backend/data/cache/*
+!backend/data/cache/.gitkeep
+
+# 语料原文与预处理结果可由脚本重新生成，不入库（约 70MB）
+backend/data/raw/
+backend/data/processed/
+
+# 其他
+*.log
+*.db
+.DS_Store

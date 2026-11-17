@@ -1,0 +1,28 @@
+# 密钥与本地环境：绝不能进入镜像
+.env
+.env.*
+!.env.example
+
+# 本地虚拟环境、缓存、IDE 与版本库
+.venv/
+.cache/
+.git/
+.vscode/
+.idea/
+.pytest_cache/
+**/__pycache__/
+**/*.pyc
+
+# 原始语料与中间产物：镜像只需要最终索引（backend/data/index）和评测数据
+backend/data/raw/
+backend/data/processed/
+backend/data/cache/
+backend/data/documents/
+
+# 测试与文档不参与运行
+tests/
+docs/
+*.md
+compose.yaml
+start-*.cmd
+*.log

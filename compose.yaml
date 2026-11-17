@@ -1,0 +1,42 @@
+name: python-ecosystem-dev
+
+services:
+  db:
+    image: ${POSTGRES_IMAGE:-postgres:17-alpine}
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?Create .env first}
+      POSTGRES_USER: ${POSTGRES_USER:?Create .env first}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Create .env first}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  # 应用服务（可选）：只在显式指定 profile 时启动，日常开发仍用本机 uvicorn
+  #   docker compose --profile app up -d --build
+  app:
+    profiles: ["app"]
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_API_BASE: ${OPENAI_API_BASE:-https://api.deepseek.com}
+      OPENAI_MODEL: ${OPENAI_MODEL:-deepseek-chat}
+      # 容器内访问数据库要用服务名 db，而不是 127.0.0.1
+      DATABASE_URL: postgresql://${POSTGRES_USER:?Create .env first}:${POSTGRES_PASSWORD:?Create .env first}@db:5432/${POSTGRES_DB:?Create .env first}
+      # 前面有反向代理（Caddy/Nginx）时可设为 true，让限流按真实客户端 IP 计数
+      TRUST_PROXY_HEADERS: ${TRUST_PROXY_HEADERS:-false}
+    ports:
+      - "127.0.0.1:8000:8000"
+
+volumes:
+  postgres_data:

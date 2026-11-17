@@ -1,0 +1,639 @@
+{
+  "generated_at": "2026-11-15 13:19:12",
+  "cases": 28,
+  "top_k": 4,
+  "threshold": 0.4,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "llm_model": "deepseek-chat",
+  "index": {
+    "ready": true,
+    "total_chunks": 3270,
+    "dim": 384,
+    "by_version": {
+      "pandas@1.5.3": 443,
+      "pandas@2.2.0": 380,
+      "sqlalchemy@1.4": 1201,
+      "sqlalchemy@2.0": 1246
+    },
+    "missing_records": 0
+  },
+  "modes": {
+    "pre": {
+      "recall_at_k": 0.875,
+      "recall_evaluated": 24,
+      "status_accuracy": 1.0,
+      "conflict_rate": 0.071,
+      "refusal_rate": 0.143
+    },
+    "post": {
+      "recall_at_k": 0.875,
+      "recall_evaluated": 24,
+      "status_accuracy": 1.0,
+      "conflict_rate": 0.071,
+      "refusal_rate": 0.143
+    },
+    "none": {
+      "recall_at_k": 1.0,
+      "recall_evaluated": 24,
+      "status_accuracy": 1.0,
+      "conflict_rate": 0.071,
+      "refusal_rate": 0.143
+    }
+  },
+  "errors": {
+    "conflict_false_positive": 0,
+    "conflict_missed": 0,
+    "false_refusal": 0
+  },
+  "details": [
+    {
+      "id": "p1",
+      "query": "DataFrame.append 怎么用？",
+      "library": "pandas",
+      "version": "1.5.3",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.append",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.append",
+        "pandas.Series.append",
+        "pandas.DataFrame.__iter__",
+        "pandas.DataFrame.eval"
+      ],
+      "top_score": 0.5323931574821472,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p2",
+      "query": "DataFrame.append 怎么用？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.append",
+      "recall_hit": false,
+      "top_symbols": [
+        "pandas.MultiIndex.append",
+        "pandas.DataFrame.__add__",
+        "pandas.DataFrame.__iter__",
+        "pandas.DataFrame.applymap"
+      ],
+      "top_score": 0.5229891538619995,
+      "used_llm": null,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p3",
+      "query": "DataFrame.append 在哪个版本被移除的？",
+      "library": "pandas",
+      "version": null,
+      "expect_status": "conflict",
+      "actual_status": "conflict",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.append",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.append",
+        "pandas.MultiIndex.append",
+        "pandas.tseries.offsets.BusinessHour.apply",
+        "pandas.tseries.offsets.BusinessMonthEnd.onOffset"
+      ],
+      "top_score": 0.4917041063308716,
+      "used_llm": null,
+      "note": null,
+      "reasons": [
+        "检索结果中 1 个符号在不同版本间存在不一致，且未指定版本；不替你选择「最新版本」"
+      ]
+    },
+    {
+      "id": "p4",
+      "query": "pandas.concat 怎么合并两个 DataFrame？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.concat",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.concat",
+        "pandas.DataFrame.columns",
+        "pandas.DataFrame.items",
+        "pandas.DataFrame.add_prefix"
+      ],
+      "top_score": 0.5518484115600586,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p5",
+      "query": "pandas.merge 和 DataFrame.merge 有什么区别？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.merge",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.merge",
+        "pandas.DataFrame.merge",
+        "pandas.merge_asof",
+        "pandas.DataFrame.combine"
+      ],
+      "top_score": 0.5056816339492798,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p6",
+      "query": "DataFrame.groupby 怎么按列分组求和？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.groupby",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.groupby",
+        "pandas.core.groupby.DataFrameGroupBy.get_group",
+        "pandas.core.groupby.SeriesGroupBy.get_group",
+        "pandas.core.groupby.DataFrameGroupBy.head"
+      ],
+      "top_score": 0.6643746495246887,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p7",
+      "query": "read_csv 怎么指定分隔符？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.read_csv",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.read_csv",
+        "pandas.read_clipboard",
+        "pandas.read_sas",
+        "pandas.read_pickle"
+      ],
+      "top_score": 0.46733659505844116,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p8",
+      "query": "to_datetime 怎么处理时区？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.to_datetime",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.to_datetime",
+        "pandas.Timestamp",
+        "pandas.DatetimeTZDtype",
+        "pandas.tseries.api.guess_datetime_format"
+      ],
+      "top_score": 0.42471784353256226,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p9",
+      "query": "DataFrame.astype 里的 copy 参数是什么？",
+      "library": "pandas",
+      "version": "1.5.3",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.astype",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.astype",
+        "pandas.DataFrame.__dataframe__",
+        "pandas.DataFrame",
+        "pandas.tseries.offsets.BusinessMonthEnd.isAnchored"
+      ],
+      "top_score": 0.48941171169281006,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p10",
+      "query": "DataFrame.fillna 怎么按列填充？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.fillna",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.fillna",
+        "pandas.core.groupby.DataFrameGroupBy.fillna",
+        "pandas.core.groupby.SeriesGroupBy.fillna",
+        "pandas.DataFrame.backfill"
+      ],
+      "top_score": 0.5428125858306885,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p11",
+      "query": "DataFrame.drop 怎么删除行？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.drop",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.drop",
+        "pandas.DataFrame.dropna",
+        "pandas.DataFrame.pop",
+        "pandas.MultiIndex.drop"
+      ],
+      "top_score": 0.574578583240509,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p12",
+      "query": "DataFrame.applymap 怎么用？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.applymap",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.applymap",
+        "pandas.DataFrame.map",
+        "pandas.DataFrame.columns",
+        "pandas.DataFrame.__iter__"
+      ],
+      "top_score": 0.6521692276000977,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p13",
+      "query": "DataFrame.lookup 怎么用？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.lookup",
+      "recall_hit": false,
+      "top_symbols": [
+        "pandas.DataFrame.__iter__",
+        "pandas.DataFrame.keys",
+        "pandas.DataFrame.pop",
+        "pandas.DataFrame.__dataframe__"
+      ],
+      "top_score": 0.5437414646148682,
+      "used_llm": null,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p14",
+      "query": "DataFrame.iteritems 和 items 的区别？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.iteritems",
+      "recall_hit": false,
+      "top_symbols": [
+        "pandas.DataFrame.items",
+        "pandas.DataFrame.__iter__",
+        "pandas.DataFrame.columns",
+        "pandas.DataFrame.pop"
+      ],
+      "top_score": 0.4724375605583191,
+      "used_llm": null,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p15",
+      "query": "DataFrame.map 怎么逐元素替换？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.map",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.map",
+        "pandas.DataFrame.applymap",
+        "pandas.io.formats.style.Styler.map",
+        "pandas.io.formats.style.Styler.map_index"
+      ],
+      "top_score": 0.6210435628890991,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p16",
+      "query": "DataFrame.mad 计算平均绝对偏差吗？",
+      "library": "pandas",
+      "version": "1.5.3",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.mad",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.mad",
+        "pandas.Series.mad",
+        "pandas.DataFrame.__iter__",
+        "pandas.tseries.offsets.BusinessMonthEnd.isAnchored"
+      ],
+      "top_score": 0.49492770433425903,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "p17",
+      "query": "DataFrame.isetitem 在 1.5 里怎么用？",
+      "library": "pandas",
+      "version": "1.5.3",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "pandas.DataFrame.isetitem",
+      "recall_hit": true,
+      "top_symbols": [
+        "pandas.DataFrame.isetitem",
+        "pandas.DataFrame.iteritems",
+        "pandas.DataFrame.bool",
+        "pandas.tseries.offsets.BusinessMonthEnd.isAnchored"
+      ],
+      "top_score": 0.5390105247497559,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "s1",
+      "query": "sqlalchemy.orm.Session 怎么创建？",
+      "library": "sqlalchemy",
+      "version": "2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "sqlalchemy.orm.Session",
+      "recall_hit": true,
+      "top_symbols": [
+        "sqlalchemy.orm.Session",
+        "sqlalchemy.orm.ORMExecuteState.session",
+        "sqlalchemy.orm.object_session",
+        "sqlalchemy.orm.sessionmaker.object_session"
+      ],
+      "top_score": 0.842171311378479,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "s2",
+      "query": "sqlalchemy.orm.Session 在两个版本里的参数有什么不同？",
+      "library": "sqlalchemy",
+      "version": null,
+      "expect_status": "conflict",
+      "actual_status": "conflict",
+      "status_ok": true,
+      "expect_symbol": "sqlalchemy.orm.Session",
+      "recall_hit": true,
+      "top_symbols": [
+        "sqlalchemy.orm.Session",
+        "sqlalchemy.orm.Session",
+        "sqlalchemy.orm.ORMExecuteState.session",
+        "sqlalchemy.orm.ORMExecuteState.session"
+      ],
+      "top_score": 0.6633479595184326,
+      "used_llm": null,
+      "note": null,
+      "reasons": [
+        "检索结果中 1 个符号在不同版本间存在不一致，且未指定版本；不替你选择「最新版本」"
+      ]
+    },
+    {
+      "id": "s3",
+      "query": "create_engine 怎么配置连接池？",
+      "library": "sqlalchemy",
+      "version": "2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "sqlalchemy.create_engine",
+      "recall_hit": true,
+      "top_symbols": [
+        "sqlalchemy.engine.CreateEnginePlugin.__init__",
+        "sqlalchemy.create_engine",
+        "sqlalchemy.engine.Engine",
+        "sqlalchemy.engine_from_config"
+      ],
+      "top_score": 0.5820013284683228,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "s4",
+      "query": "declarative_base 怎么定义模型？",
+      "library": "sqlalchemy",
+      "version": "1.4",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "sqlalchemy.orm.declarative_base",
+      "recall_hit": true,
+      "top_symbols": [
+        "sqlalchemy.orm.as_declarative",
+        "sqlalchemy.orm.declarative_base",
+        "sqlalchemy.orm.registry.generate_base",
+        "sqlalchemy.orm.registry.as_declarative_base"
+      ],
+      "top_score": 0.40070319175720215,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "s5",
+      "query": "engine.Engine 的 echo 参数怎么用？",
+      "library": "sqlalchemy",
+      "version": "1.4",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "sqlalchemy.engine.Engine",
+      "recall_hit": true,
+      "top_symbols": [
+        "sqlalchemy.engine.Engine",
+        "sqlalchemy.engine.CreateEnginePlugin.engine_created",
+        "sqlalchemy.engine.Engine.engine",
+        "sqlalchemy.engine.Engine.name"
+      ],
+      "top_score": 0.3806290626525879,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "s6",
+      "query": "sqlalchemy.orm.Query 在 2.0 还能用吗？",
+      "library": "sqlalchemy",
+      "version": "2.0",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "sqlalchemy.orm.Query",
+      "recall_hit": true,
+      "top_symbols": [
+        "sqlalchemy.orm.Query",
+        "sqlalchemy.orm.Session.query",
+        "sqlalchemy.orm.Query.where",
+        "sqlalchemy.orm.Query.value"
+      ],
+      "top_score": 0.7725026607513428,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "s7",
+      "query": "sqlalchemy.orm.Query 和 Session.execute 的关系？",
+      "library": "sqlalchemy",
+      "version": "1.4",
+      "expect_status": "answer",
+      "actual_status": "answer",
+      "status_ok": true,
+      "expect_symbol": "sqlalchemy.orm.Query",
+      "recall_hit": true,
+      "top_symbols": [
+        "sqlalchemy.orm.Query",
+        "sqlalchemy.orm.Session.execute",
+        "sqlalchemy.orm.Query.execute",
+        "sqlalchemy.orm.Session.query"
+      ],
+      "top_score": 0.6974300146102905,
+      "used_llm": true,
+      "note": null,
+      "reasons": []
+    },
+    {
+      "id": "r1",
+      "query": "量子计算怎么实现？",
+      "library": null,
+      "version": null,
+      "expect_status": "refused",
+      "actual_status": "refused",
+      "status_ok": true,
+      "expect_symbol": null,
+      "recall_hit": null,
+      "top_symbols": [],
+      "top_score": 0.24041998386383057,
+      "used_llm": null,
+      "note": null,
+      "reasons": [
+        "检索到的最佳片段相似度 0.240",
+        "低于相关性下限 0.4，无法保证答案有据可依"
+      ]
+    },
+    {
+      "id": "r2",
+      "query": "如何做红烧肉？",
+      "library": null,
+      "version": null,
+      "expect_status": "refused",
+      "actual_status": "refused",
+      "status_ok": true,
+      "expect_symbol": null,
+      "recall_hit": null,
+      "top_symbols": [],
+      "top_score": 0.2740546464920044,
+      "used_llm": null,
+      "note": null,
+      "reasons": [
+        "检索到的最佳片段相似度 0.274",
+        "低于相关性下限 0.4，无法保证答案有据可依"
+      ]
+    },
+    {
+      "id": "r3",
+      "query": "Kubernetes 怎么部署微服务？",
+      "library": null,
+      "version": null,
+      "expect_status": "refused",
+      "actual_status": "refused",
+      "status_ok": true,
+      "expect_symbol": null,
+      "recall_hit": null,
+      "top_symbols": [],
+      "top_score": 0.20772334933280945,
+      "used_llm": null,
+      "note": null,
+      "reasons": [
+        "检索到的最佳片段相似度 0.208",
+        "低于相关性下限 0.4，无法保证答案有据可依"
+      ]
+    },
+    {
+      "id": "r4",
+      "query": "DataFrame.nonexistent_method 怎么用？",
+      "library": "pandas",
+      "version": "2.2.0",
+      "expect_status": "refused",
+      "actual_status": "refused",
+      "status_ok": true,
+      "expect_symbol": null,
+      "recall_hit": null,
+      "top_symbols": [],
+      "top_score": 0.5465710163116455,
+      "used_llm": null,
+      "note": null,
+      "reasons": [
+        "查询中的符号 DataFrame.nonexistent_method 不在当前知识库覆盖范围内（已索引库：pandas, sqlalchemy）"
+      ]
+    }
+  ],
+  "generation": {
+    "answers": 22,
+    "llm_calls": 19,
+    "fallbacks": 0
+  },
+  "elapsed_s": 147.6
+}

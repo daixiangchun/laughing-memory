@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="版本感知的 Python 库文档问答系统" />
+    <title>Python 版本感知文档问答</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <style>
+      html, body { height: 100%; }
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      .msg-body pre code.hljs { border-radius: 0.5rem; }
+    </style>
+  </head>
+
+  <body class="h-full bg-slate-50 text-slate-800">
+    <a href="#chat-input" class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-1 focus:shadow">跳到输入框</a>
+
+    <div class="flex h-full">
+      <!-- 手机端遮罩：点击关闭会话列表 -->
+      <div id="sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-slate-900/40 md:hidden"></div>
+
+      <!-- 左：会话列表（手机端为抽屉，桌面端常驻） -->
+      <aside
+        id="sidebar"
+        aria-label="会话列表"
+        class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col border-r border-slate-200 bg-white transition-transform duration-200 md:static md:translate-x-0"
+      >
+        <div class="border-b border-slate-200 px-3 py-3">
+          <p class="text-sm font-semibold">Python 文档问答</p>
+          <p class="mt-0.5 text-xs text-slate-500">版本感知 · 冲突不合并</p>
+        </div>
+
+        <div class="px-3 py-2">
+          <button
+            id="new-chat"
+            type="button"
+            class="w-full rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+          >
+            + 新对话
+          </button>
+        </div>
+
+        <nav id="conversation-list" aria-label="历史对话" class="flex-1 overflow-y-auto px-2 pb-3"></nav>
+
+        <div class="border-t border-slate-200 px-3 py-2 text-xs">
+          <a href="/admin.html" class="text-slate-500 hover:text-slate-800">管理页 →</a>
+          <a href="/docs" class="ml-3 text-slate-500 hover:text-slate-800">API 文档</a>
+        </div>
+      </aside>
+
+      <!-- 右：对话主区 -->
+      <main class="flex min-w-0 flex-1 flex-col">
+        <header class="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-white px-4 py-2.5">
+          <button
+            id="menu-toggle"
+            type="button"
+            aria-label="打开会话列表"
+            aria-controls="sidebar"
+            aria-expanded="false"
+            class="rounded-md border border-slate-300 px-2 py-1 text-sm md:hidden"
+          >
+            ☰ 会话
+          </button>
+
+          <label class="text-xs text-slate-500" for="library-select">库</label>
+          <select
+            id="library-select"
+            class="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm"
+          >
+            <option value="">全部库</option>
+          </select>
+
+          <label class="text-xs text-slate-500" for="version-select">版本</label>
+          <select
+            id="version-select"
+            class="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm disabled:bg-slate-100"
+            disabled
+          >
+            <option value="">不指定（跨版本比对）</option>
+          </select>
+
+          <label class="text-xs text-slate-500" for="mode-select">过滤</label>
+          <select
+            id="mode-select"
+            class="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm"
+            title="pre：先按版本缩小范围再召回；post：先召回再过滤；none：不过滤（评测基线）"
+          >
+            <option value="pre" selected>pre（先过滤）</option>
+            <option value="post">post（先召回）</option>
+            <option value="none">none（不过滤）</option>
+          </select>
+
+          <span class="ml-auto hidden text-xs text-slate-400 lg:inline">未指定版本时，跨版本不一致会直接返回冲突</span>
+        </header>
+
+        <section
+          id="messages"
+          role="log"
+          aria-live="polite"
+          class="flex-1 space-y-4 overflow-y-auto px-4 py-4"
+        ></section>
+
+        <form id="chat-form" class="border-t border-slate-200 bg-white px-4 py-3">
+          <div id="quick-asks" class="mb-2 flex flex-wrap gap-1.5 text-xs" aria-label="示例问题"></div>
+          <div class="flex items-end gap-2">
+            <label for="chat-input" class="sr-only">输入问题</label>
+            <textarea
+              id="chat-input"
+              rows="1"
+              placeholder="例如：DataFrame.append 怎么用？（Enter 发送，Shift+Enter 换行）"
+              class="max-h-40 flex-1 resize-none rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-500"
+            ></textarea>
+            <button
+              id="chat-submit"
+              type="submit"
+              class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+            >
+              发送
+            </button>
+          </div>
+          <p class="mt-1.5 text-[11px] text-slate-400">
+            答案仅依据已索引的 pandas 1.5.3 / 2.2.0、SQLAlchemy 1.4 / 2.0 官方文档；检索不到就拒答。
+          </p>
+        </form>
+      </main>
+    </div>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/chat.js"></script>
+  </body>
+</html>
